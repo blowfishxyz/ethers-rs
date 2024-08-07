@@ -200,6 +200,7 @@ pub enum Chain {
     Degen = 666666666,
 
     ImmutableZkEvm = 13371,
+    ImmutableZkEvmTestnet = 13473,
 }
 
 // === impl Chain ===
@@ -339,6 +340,7 @@ impl Chain {
             Elastos => 5_000,
             Degen => 622,
             ImmutableZkEvm => 2_000,
+            ImmutableZkEvmTestnet => 2_000,
             // Explicitly exhaustive. See NB above.
             Morden | Ropsten | Rinkeby | Goerli | Kovan | Sepolia | Holesky | Moonbase
             | MoonbeamDev | OptimismKovan | Poa | Sokol | Rsk | EmeraldTestnet | Boba | Base
@@ -425,6 +427,7 @@ impl Chain {
             | ZoraGoerli
             | ZoraSepolia
             | Degen
+            | ImmutableZkEvmTestnet
             | ImmutableZkEvm => false,
 
             // Unknown / not applicable, default to false for backwards compatibility
@@ -657,8 +660,12 @@ impl Chain {
             Elastos => ("https://api.elastos.io/eth", "https://esc.elastos.io/"),
             Degen => ("https://explorer.degen.tips/api", "https://explorer.degen.tips"),
             ImmutableZkEvm => {
-                ("https://explorer.immutable.com/api", "https://explorer.immutable.com/")
+                ("https://explorer.immutable.com/api", "https://explorer.immutable.com")
             }
+            ImmutableZkEvmTestnet => (
+                "https://explorer.testnet.immutable.com/api",
+                "https://explorer.testnet.immutable.com",
+            ),
         };
 
         Some(urls)
@@ -754,6 +761,7 @@ impl Chain {
             | FilecoinCalibrationTestnet
             | Elastos
             | ImmutableZkEvm
+            | ImmutableZkEvmTestnet
             | Degen => return None,
         };
 
