@@ -201,6 +201,8 @@ pub enum Chain {
 
     ImmutableZkEvm = 13371,
     ImmutableZkEvmTestnet = 13473,
+
+    WorldCoin = 480,
 }
 
 // === impl Chain ===
@@ -341,6 +343,7 @@ impl Chain {
             Degen => 622,
             ImmutableZkEvm => 2_000,
             ImmutableZkEvmTestnet => 2_000,
+            WorldCoin => 2_000,
             // Explicitly exhaustive. See NB above.
             Morden | Ropsten | Rinkeby | Goerli | Kovan | Sepolia | Holesky | Moonbase
             | MoonbeamDev | OptimismKovan | Poa | Sokol | Rsk | EmeraldTestnet | Boba | Base
@@ -427,6 +430,7 @@ impl Chain {
             | ZoraGoerli
             | ZoraSepolia
             | Degen
+            | WorldCoin
             | ImmutableZkEvmTestnet
             | ImmutableZkEvm => false,
 
@@ -666,6 +670,10 @@ impl Chain {
                 "https://explorer.testnet.immutable.com/api",
                 "https://explorer.testnet.immutable.com",
             ),
+            WorldCoin => (
+                "https://worldchain-mainnet-explorer.alchemy.com/api",
+                "https://worldchain-mainnet-explorer.alchemy.com",
+            ),
         };
 
         Some(urls)
@@ -762,6 +770,7 @@ impl Chain {
             | Elastos
             | ImmutableZkEvm
             | ImmutableZkEvmTestnet
+            | WorldCoin
             | Degen => return None,
         };
 
