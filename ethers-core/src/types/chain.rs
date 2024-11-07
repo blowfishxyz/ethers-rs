@@ -203,6 +203,8 @@ pub enum Chain {
     ImmutableZkEvmTestnet = 13473,
 
     WorldCoin = 480,
+
+    MonadDevnet = 41454,
 }
 
 // === impl Chain ===
@@ -344,6 +346,7 @@ impl Chain {
             ImmutableZkEvm => 2_000,
             ImmutableZkEvmTestnet => 2_000,
             WorldCoin => 2_000,
+            MonadDevnet => 1_000,
             // Explicitly exhaustive. See NB above.
             Morden | Ropsten | Rinkeby | Goerli | Kovan | Sepolia | Holesky | Moonbase
             | MoonbeamDev | OptimismKovan | Poa | Sokol | Rsk | EmeraldTestnet | Boba | Base
@@ -433,6 +436,7 @@ impl Chain {
             | WorldCoin
             | ImmutableZkEvmTestnet
             | ImmutableZkEvm => false,
+            MonadDevnet => false,
 
             // Unknown / not applicable, default to false for backwards compatibility
             Dev | AnvilHardhat | Morden | Ropsten | Rinkeby | Cronos | CronosTestnet | Kovan
@@ -674,6 +678,8 @@ impl Chain {
                 "https://worldchain-mainnet-explorer.alchemy.com/api",
                 "https://worldchain-mainnet-explorer.alchemy.com",
             ),
+
+            MonadDevnet => return None,
         };
 
         Some(urls)
@@ -771,7 +777,8 @@ impl Chain {
             | ImmutableZkEvm
             | ImmutableZkEvmTestnet
             | WorldCoin
-            | Degen => return None,
+            | Degen
+            | MonadDevnet => return None,
         };
 
         Some(api_key_name)
