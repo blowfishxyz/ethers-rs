@@ -129,10 +129,8 @@ impl Signature {
     fn as_signature(&self) -> Result<(RecoverableSignature, RecoveryId), SignatureError> {
         let mut recovery_id = self.recovery_id()?;
         let mut signature = {
-            let mut r_bytes = [0u8; 32];
-            let mut s_bytes = [0u8; 32];
-            self.r.to_big_endian(&mut r_bytes);
-            self.s.to_big_endian(&mut s_bytes);
+            let r_bytes: [u8; 32] = self.r.to_big_endian();
+            let s_bytes: [u8; 32] = self.s.to_big_endian();
             let gar: &GenericArray<u8, U32> = GenericArray::from_slice(&r_bytes);
             let gas: &GenericArray<u8, U32> = GenericArray::from_slice(&s_bytes);
             K256Signature::from_scalars(*gar, *gas)?
@@ -240,10 +238,8 @@ impl FromStr for Signature {
 impl From<&Signature> for [u8; 65] {
     fn from(src: &Signature) -> [u8; 65] {
         let mut sig = [0u8; 65];
-        let mut r_bytes = [0u8; 32];
-        let mut s_bytes = [0u8; 32];
-        src.r.to_big_endian(&mut r_bytes);
-        src.s.to_big_endian(&mut s_bytes);
+        let r_bytes: [u8; 32] = src.r.to_big_endian();
+        let s_bytes: [u8; 32] = src.s.to_big_endian();
         sig[..32].copy_from_slice(&r_bytes);
         sig[32..64].copy_from_slice(&s_bytes);
         // TODO: What if we try to serialize a signature where

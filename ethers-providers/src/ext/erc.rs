@@ -42,8 +42,7 @@ impl FromStr for ERCNFT {
         let (contract_addr, token_id) = if token_split.len() == 2 {
             let token_id = U256::from_dec_str(token_split[1])
                 .map_err(|e| format!("Unsupported token id type: {} {e}", token_split[1]))?;
-            let mut token_id_bytes = [0x0; 32];
-            token_id.to_big_endian(&mut token_id_bytes);
+            let token_id_bytes: [u8; 32] = token_id.to_big_endian();
             (
                 Address::from_str(token_split[0].trim_start_matches("0x"))
                     .map_err(|e| format!("Invalid contract address: {} {e}", token_split[0]))?,

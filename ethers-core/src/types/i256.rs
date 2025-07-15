@@ -364,7 +364,8 @@ impl I256 {
     #[inline(always)]
     #[track_caller]
     pub fn to_big_endian(&self, bytes: &mut [u8]) {
-        self.0.to_big_endian(bytes)
+        let be_bytes: [u8; 32] = self.0.to_big_endian();
+        bytes.copy_from_slice(&be_bytes);
     }
 
     /// Write to the slice in little-endian format.
@@ -375,7 +376,8 @@ impl I256 {
     #[inline(always)]
     #[track_caller]
     pub fn to_little_endian(&self, bytes: &mut [u8]) {
-        self.0.to_little_endian(bytes)
+        let le_bytes: [u8; 32] = self.0.to_little_endian();
+        bytes.copy_from_slice(&le_bytes);
     }
 }
 

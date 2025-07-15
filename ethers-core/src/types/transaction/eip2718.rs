@@ -417,7 +417,7 @@ impl TypedTransaction {
 impl Decodable for TypedTransaction {
     fn decode(rlp: &rlp::Rlp) -> Result<Self, rlp::DecoderError> {
         let tx_type: Option<U64> = match rlp.is_data() {
-            true => Some(rlp.data()?.into()),
+            true => Some(U64::from_big_endian(rlp.data()?)),
             false => None,
         };
         let rest = rlp::Rlp::new(
