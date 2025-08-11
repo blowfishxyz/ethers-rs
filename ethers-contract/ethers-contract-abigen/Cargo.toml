@@ -46,7 +46,7 @@ toml.workspace = true
 # online
 ethers-etherscan = { workspace = true, optional = true }
 reqwest = { workspace = true, features = ["blocking"], optional = true }
-tokio = { workspace = true, optional = true }
+tokio = { workspace = true, features = ["rt", "rt-multi-thread"], optional = true }
 url = { workspace = true, optional = true }
 
 [features]

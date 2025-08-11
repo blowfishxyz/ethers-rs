@@ -118,10 +118,8 @@ async fn test_derive_eip712() {
 
     let sig = wallet.sign_typed_data(&foo_bar).await.expect("failed to sign typed data");
 
-    let mut r = [0; 32];
-    sig.r.to_big_endian(&mut r);
-    let mut s = [0; 32];
-    sig.s.to_big_endian(&mut s);
+    let r = sig.r.to_big_endian();
+    let s = sig.s.to_big_endian();
     let v = sig.v as u8;
 
     let domain_separator = contract

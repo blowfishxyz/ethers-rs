@@ -336,7 +336,7 @@ mod tests {
     fn encode_uint() {
         let mut uint = [0u8; 32];
         uint[31] = 4;
-        let encoded = encode(&[Token::Uint(uint.into())]);
+        let encoded = encode(&[Token::Uint(ethabi::ethereum_types::U256::from_big_endian(&uint))]);
         let expected = hex!("04");
         assert_eq!(encoded, expected);
     }
@@ -345,7 +345,7 @@ mod tests {
     fn encode_int() {
         let mut int = [0u8; 32];
         int[31] = 4;
-        let encoded = encode(&[Token::Int(int.into())]);
+        let encoded = encode(&[Token::Int(ethabi::ethereum_types::U256::from_big_endian(&int))]);
         let expected = hex!("04");
         assert_eq!(encoded, expected);
     }

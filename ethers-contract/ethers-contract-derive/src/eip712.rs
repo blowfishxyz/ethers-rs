@@ -50,7 +50,7 @@ pub(crate) fn impl_derive_eip712(input: &DeriveInput) -> Result<TokenStream> {
 
             fn struct_hash(&self) -> ::core::result::Result<[u8; 32], Self::Error> {
                 let mut items = vec![#ethers_core::abi::Token::Uint(
-                    #ethers_core::types::U256::from(&Self::type_hash()?[..]),
+                    #ethers_core::types::U256::from_big_endian(&Self::type_hash()?),
                 )];
 
                 if let #ethers_core::abi::Token::Tuple(tokens) =
