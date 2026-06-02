@@ -189,7 +189,6 @@ pub enum Chain {
     Viction = 88,
 
     Zora = 7777777,
-    ZoraGoerli = 999,
     ZoraSepolia = 999999999,
 
     Mode = 34443,
@@ -201,6 +200,9 @@ pub enum Chain {
 
     Monad = 143,
     MonadTestnet = 10143,
+
+    HyperEvm = 999,
+    HyperEvmTestnet = 998,
 }
 
 // === impl Chain ===
@@ -340,12 +342,13 @@ impl Chain {
             Elastos => 5_000,
             Degen => 622,
             Monad | MonadTestnet => 400,
+            HyperEvm | HyperEvmTestnet => 1_000,
             // Explicitly exhaustive. See NB above.
             Morden | Ropsten | Rinkeby | Goerli | Kovan | Sepolia | Holesky | Moonbase
             | MoonbeamDev | OptimismKovan | Poa | Sokol | Rsk | EmeraldTestnet | Boba | Base
             | BaseGoerli | BaseSepolia | Blast | BlastSepolia | ZkSync | ZkSyncTestnet
             | PolygonZkEvm | PolygonZkEvmTestnet | Metis | Linea | LineaTestnet | Mantle
-            | MantleTestnet | Zora | ZoraGoerli | ZoraSepolia => return None,
+            | MantleTestnet | Zora | ZoraSepolia => return None,
         };
 
         Some(Duration::from_millis(ms))
@@ -423,11 +426,12 @@ impl Chain {
             | Mode
             | ModeSepolia
             | Zora
-            | ZoraGoerli
             | ZoraSepolia
             | Degen
             | Monad
-            | MonadTestnet => false,
+            | MonadTestnet
+            | HyperEvm
+            | HyperEvmTestnet => false,
 
             // Unknown / not applicable, default to false for backwards compatibility
             Dev | AnvilHardhat | Morden | Ropsten | Rinkeby | Cronos | CronosTestnet | Kovan
@@ -637,9 +641,6 @@ impl Chain {
             }
 
             Zora => ("https://explorer.zora.energy/api", "https://explorer.zora.energy"),
-            ZoraGoerli => {
-                ("https://testnet.explorer.zora.energy/api", "https://testnet.explorer.zora.energy")
-            }
             ZoraSepolia => {
                 ("https://sepolia.explorer.zora.energy/api", "https://sepolia.explorer.zora.energy")
             }
@@ -662,6 +663,7 @@ impl Chain {
             MonadTestnet => {
                 ("https://testnet.monadexplorer.com//api", "https://testnet.monadexplorer.com")
             }
+            HyperEvm | HyperEvmTestnet => return None,
         };
 
         Some(urls)
@@ -728,7 +730,7 @@ impl Chain {
 
             Moonbeam | Moonbase | MoonbeamDev | Moonriver => "MOONSCAN_API_KEY",
 
-            Canto | CantoTestnet | Zora | ZoraGoerli | ZoraSepolia | Mode | ModeSepolia => {
+            Canto | CantoTestnet | Zora | ZoraSepolia | Mode | ModeSepolia => {
                 "BLOCKSCOUT_API_KEY"
             }
 
@@ -758,7 +760,9 @@ impl Chain {
             | Elastos
             | Degen
             | Monad
-            | MonadTestnet => return None,
+            | MonadTestnet
+            | HyperEvm
+            | HyperEvmTestnet => return None,
         };
 
         Some(api_key_name)
