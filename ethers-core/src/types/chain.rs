@@ -203,6 +203,9 @@ pub enum Chain {
 
     HyperEvm = 999,
     HyperEvmTestnet = 998,
+
+    Robinhood = 4663,
+    RobinhoodTestnet = 46630,
 }
 
 // === impl Chain ===
@@ -343,6 +346,8 @@ impl Chain {
             Degen => 622,
             Monad | MonadTestnet => 400,
             HyperEvm | HyperEvmTestnet => 1_000,
+            Robinhood => 100,
+            RobinhoodTestnet => 400,
             // Explicitly exhaustive. See NB above.
             Morden | Ropsten | Rinkeby | Goerli | Kovan | Sepolia | Holesky | Moonbase
             | MoonbeamDev | OptimismKovan | Poa | Sokol | Rsk | EmeraldTestnet | Boba | Base
@@ -431,7 +436,9 @@ impl Chain {
             | Monad
             | MonadTestnet
             | HyperEvm
-            | HyperEvmTestnet => false,
+            | HyperEvmTestnet
+            | Robinhood
+            | RobinhoodTestnet => false,
 
             // Unknown / not applicable, default to false for backwards compatibility
             Dev | AnvilHardhat | Morden | Ropsten | Rinkeby | Cronos | CronosTestnet | Kovan
@@ -663,6 +670,14 @@ impl Chain {
             MonadTestnet => {
                 ("https://testnet.monadexplorer.com//api", "https://testnet.monadexplorer.com")
             }
+            Robinhood => (
+                "https://robinhoodchain.blockscout.com/api",
+                "https://robinhoodchain.blockscout.com",
+            ),
+            RobinhoodTestnet => (
+                "https://explorer.testnet.chain.robinhood.com/api",
+                "https://explorer.testnet.chain.robinhood.com",
+            ),
             HyperEvm | HyperEvmTestnet => return None,
         };
 
@@ -762,7 +777,9 @@ impl Chain {
             | Monad
             | MonadTestnet
             | HyperEvm
-            | HyperEvmTestnet => return None,
+            | HyperEvmTestnet
+            | Robinhood
+            | RobinhoodTestnet => return None,
         };
 
         Some(api_key_name)
