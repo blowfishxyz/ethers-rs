@@ -24,9 +24,9 @@ all-features = true
 
 [dependencies]
 # abi
-open-fastrlp = { version = "0.1.4", features = ["std", "derive", "ethereum-types"] }
-rlp = { version = "0.5", features = ["derive"] }
-ethabi = { version = "18.0.0", default-features = false, features = ["full-serde", "rlp"] }
+open-fastrlp = { git = "https://github.com/kimpers/open-fastrlp", features = ["std", "derive", "ethereum-types"] }
+rlp = { version = "0.6.1", features = ["derive"] }
+ethabi = { git = "https://github.com/kimpers/ethabi", default-features = false, features = ["full-serde", "rlp"] }
 arrayvec = { version = "0.7", default-features = false }
 
 # crypto

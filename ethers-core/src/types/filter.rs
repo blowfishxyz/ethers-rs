@@ -583,8 +583,7 @@ impl From<Address> for Topic {
 
 impl From<U256> for Topic {
     fn from(src: U256) -> Self {
-        let mut bytes = [0; 32];
-        src.to_big_endian(&mut bytes);
+        let bytes: [u8; 32] = src.to_big_endian();
         ValueOrArray::Value(Some(H256::from(bytes)))
     }
 }
